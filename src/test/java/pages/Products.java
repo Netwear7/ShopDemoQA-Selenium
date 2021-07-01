@@ -10,10 +10,15 @@ public class Products {
 	
 	WebDriver driver;
 	By productsElements = By.className("noo-product-item");
+	By responseInfo = By.className("woocommerce-info");
 	
 	public Products(WebDriver driver){
 		this.driver = driver;
 	}
+	
+    public String getTextInfoSearchElement() {
+    	return driver.findElement(responseInfo).getText();
+    }
 	
 	/**
 	 * Get number of Products

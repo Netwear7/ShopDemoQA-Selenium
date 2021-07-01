@@ -8,7 +8,7 @@ public class HomePage {
 	WebDriver driver;
 	By searchElement = By.className("noo-search");
 	By searchInputElement = By.name("s");
-	By productsElements = By.className("noo-product-item");
+	By labelElement = By.className("note-search");
 
 	
 	public HomePage(WebDriver driver){
@@ -19,8 +19,20 @@ public class HomePage {
 		driver.findElement(searchInputElement).sendKeys(strSearch + Keys.ENTER);
 	}
 	
+	public boolean verifySearchInputElement(){
+		return driver.findElement(searchInputElement).isEnabled();
+	}
+	
     //Click on searchElement link
     public void clickSearchElement(){
     	driver.findElement(searchElement).click();
+    }
+    
+    public String getTextInputElement() {
+    	return driver.findElement(searchInputElement).getText();
+    }
+    
+    public String getTextLabelElement(){
+    	return driver.findElement(labelElement).getText();
     }
 }

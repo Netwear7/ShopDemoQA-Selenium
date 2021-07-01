@@ -1,6 +1,6 @@
 package tests;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Assert;
 
 import org.junit.*;
 import org.openqa.selenium.WebDriver;
@@ -16,6 +16,10 @@ public class TestSearchBar {
 	HomePage objHomePage;
 	Products objProducts;
 	
+	String keyword;
+	String expectedLabel = "TYPE AND PRESS ENTER TO SEARCH";
+	String expectedSearchInfo= "No products were found matching your selection.";
+	int expectedNbArticle;
 	
 	/**
 	 * Executed before Test
@@ -33,24 +37,49 @@ public class TestSearchBar {
 	 */
 	@After
     public void tearDown(){
-		driver.close();
+		driver.quit();
     }
 	
-	/**
-	 * Test "dress" onsearch input and get 16 Products
-	 */
+	
 	@Test
-	public void testSearchOnDemoShopQa() {
+	public void testSearch() {
+		keyword = "dress";
+		expectedNbArticle = 16;
 		// Instance of POM homepage
 		objHomePage = new HomePage(driver);
-		
 		// Rechercher l'element search et cliquer dessus
 		objHomePage.clickSearchElement();
 		
+		// Check if label is present, check if Input is enabled
+		Assert.assertEquals(expectedLabel, objHomePage.getTextLabelElement());
+		Assert.assertTrue("The input search should be enabled", objHomePage.verifySearchInputElement());
+		
 		// Rechercher l'input de recherche, écrire "dress" dedans, et presser ENTRER
-		objHomePage.setSearchInputElement("Dress");
-
+		objHomePage.setSearchInputElement(keyword);
+		
 		objProducts = new Products(driver);
-		assertEquals(16, objProducts.getNumberOfArticles());
+		Assert.assertEquals(expectedNbArticle, objProducts.getNumberOfArticles());
 	}
+	
+	@Test
+	public void testSearchNotPassing() {
+		keyword = "test";
+		
+		// Instance of POM homepage
+		objHomePage = new HomePage(driver);
+		// Rechercher l'element search et cliquer dessus
+		objHomePage.clickSearchElement();
+		
+		// Check if label is present, check if Input is enabled
+		Assert.assertEquals(expectedLabel, objHomePage.getTextLabelElement());
+		Assert.assertTrue("The input search should be enabled", objHomePage.verifySearchInputElement());
+		
+		// Rechercher l'input de recherche, écrire "dress" dedans, et presser ENTRER
+		objHomePage.setSearchInputElement(keyword);
+		
+		objProducts = new Products(driver);
+		Assert.assertEquals(expectedSearchInfo, objProducts.getTextInfoSearchElement());
+	}
+	
+	
 }
