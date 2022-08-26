@@ -25,22 +25,22 @@ public class TestSearchBar {
 	 * Executed before Test
 	 */
 	@Before
-    public void setup(){
+	public void setup(){
 		WebDriverManager.chromedriver().setup();
 		driver = new ChromeDriver();
-        driver.get("https://shop.demoqa.com/");
-        driver.manage().window().maximize();
-    }
+	driver.get("https://shop.demoqa.com/");
+	driver.manage().window().maximize();
+	}
 	
 	/**
 	 * Executed after Test
 	 */
 	@After
-    public void tearDown(){
+	public void tearDown(){
 		driver.quit();
-    }
-	
-	
+	}
+
+
 	@Test
 	public void testSearch() {
 		keyword = "dress";
@@ -49,37 +49,35 @@ public class TestSearchBar {
 		objHomePage = new HomePage(driver);
 		// Rechercher l'element search et cliquer dessus
 		objHomePage.clickSearchElement();
-		
+
 		// Check if label is present, check if Input is enabled
 		Assert.assertEquals(expectedLabel, objHomePage.getTextLabelElement());
 		Assert.assertTrue("The input search should be enabled", objHomePage.verifySearchInputElement());
-		
-		// Rechercher l'input de recherche, écrire "dress" dedans, et presser ENTRER
+
+		// Rechercher l'input de recherche, Ã©crire "dress" dedans, et presser ENTRER
 		objHomePage.setSearchInputElement(keyword);
-		
+
 		objProducts = new Products(driver);
 		Assert.assertEquals(expectedNbArticle, objProducts.getNumberOfArticles());
 	}
-	
+
 	@Test
 	public void testSearchNotPassing() {
 		keyword = "test";
-		
+
 		// Instance of POM homepage
 		objHomePage = new HomePage(driver);
 		// Rechercher l'element search et cliquer dessus
 		objHomePage.clickSearchElement();
-		
+
 		// Check if label is present, check if Input is enabled
 		Assert.assertEquals(expectedLabel, objHomePage.getTextLabelElement());
 		Assert.assertTrue("The input search should be enabled", objHomePage.verifySearchInputElement());
-		
-		// Rechercher l'input de recherche, écrire "dress" dedans, et presser ENTRER
+
+		// Rechercher l'input de recherche, Ã©crire "dress" dedans, et presser ENTRER
 		objHomePage.setSearchInputElement(keyword);
-		
+
 		objProducts = new Products(driver);
 		Assert.assertEquals(expectedSearchInfo, objProducts.getTextInfoSearchElement());
 	}
-	
-	
 }
