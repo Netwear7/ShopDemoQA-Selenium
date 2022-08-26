@@ -16,9 +16,9 @@ public class Products {
 		this.driver = driver;
 	}
 	
-    public String getTextInfoSearchElement() {
-    	return driver.findElement(responseInfo).getText();
-    }
+	public String getTextInfoSearchElement() {
+	return driver.findElement(responseInfo).getText();
+	}
 	
 	/**
 	 * Get number of Products
