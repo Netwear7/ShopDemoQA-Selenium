@@ -10,29 +10,29 @@ public class HomePage {
 	By searchInputElement = By.name("s");
 	By labelElement = By.className("note-search");
 
-	
+
 	public HomePage(WebDriver driver){
 		this.driver = driver;
 	}
-	
+
 	public void setSearchInputElement(String strSearch){
 		driver.findElement(searchInputElement).sendKeys(strSearch + Keys.ENTER);
 	}
-	
+
 	public boolean verifySearchInputElement(){
 		return driver.findElement(searchInputElement).isEnabled();
 	}
 	
-    //Click on searchElement link
-    public void clickSearchElement(){
-    	driver.findElement(searchElement).click();
-    }
-    
-    public String getTextInputElement() {
-    	return driver.findElement(searchInputElement).getText();
-    }
-    
-    public String getTextLabelElement(){
-    	return driver.findElement(labelElement).getText();
-    }
+	//Click on searchElement link
+	public void clickSearchElement(){
+	driver.findElement(searchElement).click();
+	}
+
+	public String getTextInputElement() {
+	return driver.findElement(searchInputElement).getText();
+	}
+
+	public String getTextLabelElement(){
+	return driver.findElement(labelElement).getText();
+	}
 }
